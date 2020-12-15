@@ -15,12 +15,15 @@ public class QuestionServiceImpl extends AbstractService
 
     private final QuestionJpaRepository questions;
 
+	private final AnswerJpaRepository answers;
+
     private final TechnologyJpaRepository technologies;
 
-    public QuestionServiceImpl(QuestionJpaRepository questions,
-	    TechnologyJpaRepository technologies) {
-	this.questions = questions;
-	this.technologies = technologies;
+    public QuestionServiceImpl(QuestionJpaRepository questions, AnswerJpaRepository answers,
+							   TechnologyJpaRepository technologies) {
+		this.questions = questions;
+		this.answers = answers;
+		this.technologies = technologies;
     }
 
     @Override
@@ -45,7 +48,7 @@ public class QuestionServiceImpl extends AbstractService
     public DiscussionViewDto getDiscussion(Long id) {
 	QuestionViewDto questionView = questions.findProjectedById(id)
 			.orElseThrow(RessourceNotFoundException::new);
-	return new DiscussionViewDto(questionView);
+	return new DiscussionViewDto(questionView, answers.findProjectedByQuestionId(id));
     }
 
     private void setTechnology(Question question, Long technologyId) {
