@@ -11,7 +11,7 @@ public interface AnswerJpaRepository extends JpaRepository<Answer, Long> {
 
     @Query("select new fr.formation.training.forum.dtos.AnswerViewDto"
             + "(a.id, a.text, a.author, a.answerDate) "
-            + "from Answer a inner join a.question q where q.id = :id")
-    List<AnswerViewDto> findProjectedByQuestionId(Long id);
+            + "from Answer a where a.question.id = :id order by answerDate desc")
+    List<AnswerViewDto> findAllProjectedByQuestionId(Long id);
 
 }

@@ -48,7 +48,7 @@ public class QuestionServiceImpl extends AbstractService
     public DiscussionViewDto getDiscussion(Long id) {
 	QuestionViewDto questionView = questions.findProjectedById(id)
 			.orElseThrow(RessourceNotFoundException::new);
-	return new DiscussionViewDto(questionView, answers.findProjectedByQuestionId(id));
+	return new DiscussionViewDto(questionView, answers.findAllProjectedByQuestionId(id));
     }
 
     private void setTechnology(Question question, Long technologyId) {
