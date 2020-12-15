@@ -2,6 +2,7 @@ package fr.formation.training.forum.services;
 
 import java.time.LocalDateTime;
 
+import fr.formation.training.forum.RessourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import fr.formation.training.forum.dtos.*;
@@ -33,7 +34,8 @@ public class QuestionServiceImpl extends AbstractService
 
     @Override
     public void update(Long id, QuestionUpdateDto dto) {
-	Question question = questions.findById(id).get();
+	Question question = questions.findById(id)
+			.orElseThrow(RessourceNotFoundException::new);
 	getMapper().map(dto, question);
 	setTechnology(question, dto.getTechnologyId());
 	questions.save(question);
@@ -41,7 +43,8 @@ public class QuestionServiceImpl extends AbstractService
 
     @Override
     public DiscussionViewDto getDiscussion(Long id) {
-	QuestionViewDto questionView = questions.findProjectedById(id);
+	QuestionViewDto questionView = questions.findProjectedById(id)
+			.orElseThrow(RessourceNotFoundException::new);
 	return new DiscussionViewDto(questionView);
     }
 

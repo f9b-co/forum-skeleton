@@ -1,5 +1,6 @@
 package fr.formation.training.forum.services;
 
+import fr.formation.training.forum.RessourceNotFoundException;
 import fr.formation.training.forum.dtos.*;
 import fr.formation.training.forum.entities.Answer;
 import fr.formation.training.forum.entities.Question;
@@ -8,6 +9,7 @@ import fr.formation.training.forum.repositories.QuestionJpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class AnswerServiceImpl extends AbstractService
@@ -34,7 +36,8 @@ public class AnswerServiceImpl extends AbstractService
 
     @Override
     public void update(Long id, AnswerUpdateDto dto) {
-	Answer answer = answers.findById(id).get();
+	Answer answer = answers.findById(id)
+			.orElseThrow(RessourceNotFoundException::new);
 	getMapper().map(dto, answer);
 	answers.save(answer);
     }
