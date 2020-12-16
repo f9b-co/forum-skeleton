@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import fr.formation.training.forum.dtos.*;
 import fr.formation.training.forum.entities.*;
 import fr.formation.training.forum.repositories.*;
+import org.springframework.transaction.annotation.Transactional;
+
 
 @Service
 public class QuestionServiceImpl extends AbstractService
@@ -26,7 +28,8 @@ public class QuestionServiceImpl extends AbstractService
 		this.technologies = technologies;
     }
 
-    @Override
+	@Transactional
+	@Override
     public IdentifierDto add(QuestionAddDto dto) {
 	Question question = getMapper().map(dto, Question.class);
 	question.setQuestionDate(LocalDateTime.now());
@@ -35,7 +38,13 @@ public class QuestionServiceImpl extends AbstractService
 	return new IdentifierDto(question.getId());
     }
 
-    @Override
+	private void setTechnology(Question question, Long technologyId) {
+		Technology technology = technologies.getOne(technologyId);
+		question.setTechnology(technology);
+	}
+
+	@Transactional
+	@Override
     public void update(Long id, QuestionUpdateDto dto) {
 	Question question = questions.findById(id)
 			.orElseThrow(RessourceNotFoundException::new);
@@ -44,15 +53,20 @@ public class QuestionServiceImpl extends AbstractService
 	questions.save(question);
     }
 
-    @Override
+	@Transactional(readOnly = true)
+	@Override
     public DiscussionViewDto getDiscussion(Long id) {
 	QuestionViewDto questionView = questions.findProjectedById(id)
 			.orElseThrow(RessourceNotFoundException::new);
 	return new DiscussionViewDto(questionView, answers.findAllProjectedByQuestionId(id));
     }
 
-    private void setTechnology(Question question, Long technologyId) {
-	Technology technology = technologies.getOne(technologyId);
-	question.setTechnology(technology);
-    }
+	@Transactional
+	@Override
+	public void deleteDiscussion(Long id) {
+		Question question = questions.findById(id)
+				.orElseThrow(RessourceNotFoundException::new);
+		answers.deleteByQuestionId(id);
+		questions.delete(question);
+	}
 }

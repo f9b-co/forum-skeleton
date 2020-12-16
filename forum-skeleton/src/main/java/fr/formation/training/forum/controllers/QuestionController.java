@@ -2,13 +2,7 @@ package fr.formation.training.forum.controllers;
 
 import javax.validation.Valid;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import fr.formation.training.forum.dtos.*;
 import fr.formation.training.forum.services.QuestionService;
@@ -43,6 +37,11 @@ public class QuestionController {
      */
     @GetMapping("/{id}")
     public DiscussionViewDto getDiscussion(@PathVariable("id") Long id) {
-	return service.getDiscussion(id);
+	    return service.getDiscussion(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteDiscussion(@PathVariable("id") Long id) {
+        service.deleteDiscussion(id);
     }
 }

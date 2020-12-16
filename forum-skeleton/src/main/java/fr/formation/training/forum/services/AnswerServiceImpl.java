@@ -7,9 +7,9 @@ import fr.formation.training.forum.entities.Question;
 import fr.formation.training.forum.repositories.AnswerJpaRepository;
 import fr.formation.training.forum.repositories.QuestionJpaRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Service
 public class AnswerServiceImpl extends AbstractService
@@ -25,7 +25,8 @@ public class AnswerServiceImpl extends AbstractService
 	this.questions = questions;
     }
 
-    @Override
+	@Transactional
+	@Override
     public IdentifierDto add(AnswerAddDto dto) {
 	Answer answer = getMapper().map(dto, Answer.class);
 	answer.setAnswerDate(LocalDateTime.now());
@@ -34,7 +35,8 @@ public class AnswerServiceImpl extends AbstractService
 	return new IdentifierDto(answer.getId());
     }
 
-    @Override
+	@Transactional
+	@Override
     public void update(Long id, AnswerUpdateDto dto) {
 	Answer answer = answers.findById(id)
 			.orElseThrow(RessourceNotFoundException::new);
