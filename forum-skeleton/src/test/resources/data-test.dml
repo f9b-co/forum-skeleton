@@ -1,0 +1,15 @@
+USE `forum_skeleton_test`;
+
+SET NAMES `utf8mb4`;
+
+INSERT INTO `technologies` (`technology_name`, `technology_rating`) VALUES 
+	('R', 1.6),
+	('C', 16.48),
+	('PHP', 2.12),
+	('Python', 12.21),
+	('C++', 6.91),
+	('C#', 4.2),
+	('Java', 12.53),
+	('JavaScript', 2.35),
+	('SQL', 1.53),
+	('Visual Basic', 3.92);
