@@ -13,3 +13,13 @@ INSERT INTO `technologies` (`technology_name`, `technology_rating`) VALUES
 	('JavaScript', 2.35),
 	('SQL', 1.53),
 	('Visual Basic', 3.92);
+
+INSERT INTO `questions` (`question_author`, `question_phrase`, `question_datetime`, `question_text`, `technology_id`) VALUES
+	("author_1", "C question phrase", now(), "C question text", (SELECT t.id FROM `technologies` t WHERE t.`technology_name` = "C")),
+	("author_2", "PHP question phrase", now(), "PHP question text", (SELECT t.id FROM `technologies` t WHERE t.`technology_name` = "PHP")),
+	("author_3", "JavaScript question phrase", now(), "JavaScript question text", (SELECT t.id FROM `technologies` t WHERE t.`technology_name` = "JavaScript"));
+
+INSERT INTO `answers` (`answer_datetime`, `answer_author`, `answer_text`, `question_id`) VALUES
+	(now(), "author_4", "Java answer text 1", (SELECT q.id FROM `questions` q WHERE q.`question_author` = "author_1")),
+	(now(), "author_5", "PHP answer text 1", (SELECT q.id FROM `questions` q WHERE q.`question_author` = "author_2")),
+	(now(), "author_6", "JavaScript answer text 1", (SELECT q.id FROM `questions` q WHERE q.`question_author` = "author_3"));
