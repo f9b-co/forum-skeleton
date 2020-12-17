@@ -64,9 +64,10 @@ public class QuestionServiceImpl extends AbstractService
 	@Transactional
 	@Override
 	public void deleteDiscussion(Long id) {
-		Question question = questions.findById(id)
-				.orElseThrow(RessourceNotFoundException::new);
+		if(!questions.existsById(id)) {
+			throw new RessourceNotFoundException();
+		}
 		answers.deleteByQuestionId(id);
-		questions.delete(question);
+		questions.deleteById(id);
 	}
 }
