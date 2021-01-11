@@ -40,4 +40,50 @@ public class TechnologyServiceImpl implements TechnologyService {
 	technologies.deleteById(4L); // OK
 	technologies.deleteById(8L); // KO
     }
+    // public class TechnologyServiceImplProxy extends TechnologyServiceImpl {
+    //
+    // boolean modified = false;
+    //
+    // String query = "update Answer a set ";
+    //
+    // public TechnologyServiceImplProxy(
+    // TechnologyJpaRepository technologies) {
+    // super(technologies);
+    // // TODO Auto-generated constructor stub
+    // }
+    //
+    // void setText(String text) {
+    // if(!text.equals(currentText)) {
+    //
+    // modified = true;
+    // }
+    // }
+    //
+    // void setPhrase(String phrase) {
+    // if(!phrase.equals(currentPhrase)) {
+    // modified = true;
+    // }
+    // }
+    //
+    //
+    // public boolean isModified() {
+    // return modified;
+    // }
+    //
+    //
+    // //
+    // //
+    // //
+    // @Override
+    // public void deleteBad() {
+    // // @Transactional:
+    // // BEGIN TRANSACTION
+    // // TRY
+    // // super.deleteBad();
+    // // COMMIT
+    // // CATCH
+    // // ROLLBACK
+    // // END TRANSACTION
+    // }
+    // }
 }

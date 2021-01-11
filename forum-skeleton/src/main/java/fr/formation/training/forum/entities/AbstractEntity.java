@@ -7,7 +7,7 @@ public abstract class AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JoinColumn(name = "id")
+    @Column(name = "id")
     private Long id;
 
     public Long getId() {
