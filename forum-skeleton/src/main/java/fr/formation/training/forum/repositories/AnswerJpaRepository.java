@@ -17,4 +17,9 @@ public interface AnswerJpaRepository extends JpaRepository<Answer, Long> {
     // Derived query thanks to delete prefix
     // delete from Answer a where a.question.id = :id
     void deleteByQuestionId(Long id);
+
+    // @Transactional optional if @Transactional in service
+    @Modifying
+    @Query("update Answer a set a.text = :text where a.id = :id")
+    void updateAnswer(Long id, String text);
 }
