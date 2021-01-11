@@ -3,6 +3,7 @@ package fr.formation.training.forum.services;
 import java.util.List;
 
 import fr.formation.training.forum.RessourceNotFoundException;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import fr.formation.training.forum.dtos.TechnologyViewDto;
@@ -27,6 +28,7 @@ public class TechnologyServiceImpl implements TechnologyService {
 
     @Transactional(readOnly = true)
     @Override
+    @Cacheable("technologies")
     public List<TechnologyViewDto> getAll() {
 	return technologies.getAllProjected();
     }
