@@ -4,20 +4,20 @@ import javax.validation.constraints.*;
 
 public class QuestionAddDto {
 
-    @NotBlank
-    @Size(max = 255)
-    private String phrase;
+    @NotBlank // null, "", " "
+    @Size(min = 0, max = 255) // "" -> positif
+    private String phrase; // "emilie" ou "Émilie"
 
-    @NotBlank
-    @Size(max = 1000)
+    @NotBlank // null, "", " "
+    @Size(max = 1000) // "......1001chars"
     private String text;
 
-    @NotBlank
-    @Size(max = 50)
+    @NotBlank // null, "", " "
+    @Size(max = 50) // "......51chars"
     private String author;
 
-    @NotNull
-    @Positive
+    @NotNull // null
+    @Positive // -1 0
     private Long technologyId;
 
     public Long getTechnologyId() {

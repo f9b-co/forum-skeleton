@@ -27,6 +27,9 @@ public class Question extends AbstractEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "technology_id")
     private Technology technology;
+    // @OneToMany(mappedBy = "question", fetch = FetchType.LAZY,
+    // cascade = CascadeType.REMOVE)
+    // private List<Answer> answers;
 
     public void setQuestionDate(LocalDateTime creationDate) {
 	questionDate = creationDate;

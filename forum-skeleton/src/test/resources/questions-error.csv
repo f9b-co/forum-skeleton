@@ -1,0 +1,7 @@
+json
+{"phrase": "New question 1 phrase?", "text": "New question 1 text", "author": null, "technologyId": 1}
+{"phrase": "New question 2 phrase?", "text": "New question 2 text", "author": "author_5", "technologyId": -1}
+{"phrase": "New question 2 phrase?", "text": "New question 2 text", "author": null, "technologyId": -1}
+{"phrase": "New", "text": "New question 1 text", "author": "author_5", "technologyId": "1"}
+{"phrase": "New", "text": "New question 1 text", "author": "author_5", "technologyId": false}
+{"phrase": "New", "text": "New question 1 text", "author": "author_5", "technologyId": true}

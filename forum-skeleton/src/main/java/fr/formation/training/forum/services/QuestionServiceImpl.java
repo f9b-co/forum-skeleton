@@ -43,6 +43,9 @@ public class QuestionServiceImpl extends AbstractService
     public void update(Long id, QuestionUpdateDto dto) {
 	Question question = questions.findById(id)
 		.orElseThrow(() -> new ResourceNotFoundException());
+	// Demo code:
+	// Technology technology = question.getTechnology();
+	// String name = technology.getName();
 	//
 	getMapper().map(dto, question);
 	setTechnology(question, dto.getTechnologyId());
@@ -73,7 +76,7 @@ public class QuestionServiceImpl extends AbstractService
 	question.setTechnology(technology);
     }
 
-    @Transactional
+    @Transactional()
     @Override
     public void remove(Long id) {
 	if (!questions.existsById(id)) {

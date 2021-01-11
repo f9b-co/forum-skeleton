@@ -2,6 +2,7 @@ package fr.formation.training.forum.services;
 
 import java.util.List;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +28,7 @@ public class TechnologyServiceImpl implements TechnologyService {
 
     @Transactional(readOnly = true)
     @Override
+    @Cacheable("technologies")
     public List<TechnologyViewDto> getAll() {
 	return technologies.getAllProjected();
     }

@@ -18,6 +18,14 @@ public class QuestionControllerIT extends IntegrationTest {
 	    delimiterString = CSV_DELIMITER)
     void shouldAddQuestion(String json) throws Exception {
 	api.perform(post(path).contentType(MediaType.APPLICATION_JSON)
-		.content(json)).andExpect(status().isOk()).andReturn();
+		.content(json)).andExpect(status().isOk());
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/questions-error.csv",
+	    delimiterString = CSV_DELIMITER, numLinesToSkip = 1)
+    void shouldNotAddQuestion(String json) throws Exception {
+	api.perform(post(path).contentType(MediaType.APPLICATION_JSON)
+		.content(json)).andExpect(status().isBadRequest());
     }
 }
