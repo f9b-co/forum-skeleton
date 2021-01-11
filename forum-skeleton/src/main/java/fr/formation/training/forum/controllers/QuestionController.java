@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import fr.formation.training.forum.dtos.*;
 import fr.formation.training.forum.services.QuestionService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/questions")
 public class QuestionController {
@@ -38,6 +40,11 @@ public class QuestionController {
     @GetMapping("/{id}")
     public DiscussionViewDto getDiscussion(@PathVariable("id") Long id) {
 	    return service.getDiscussion(id);
+    }
+
+    @GetMapping
+    public List<QuestionViewDto> listAll() {
+        return service.listAll();
     }
 
     @DeleteMapping("/{id}")

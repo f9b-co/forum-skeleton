@@ -31,17 +31,17 @@ public class AnswerServiceImpl extends AbstractService
 	Answer answer = getMapper().map(dto, Answer.class);
 	answer.setAnswerDate(LocalDateTime.now());
 	setQuestion(answer, dto.getQuestionId());
-	answers.save(answer);
+	//answers.save(answer);
 	return new IdentifierDto(answer.getId());
     }
 
 	@Transactional
 	@Override
     public void update(Long id, AnswerUpdateDto dto) {
-	Answer answer = answers.findById(id)
-			.orElseThrow(RessourceNotFoundException::new);
-	getMapper().map(dto, answer);
-	answers.save(answer);
+	//Answer answer = answers.findById(id).orElseThrow(RessourceNotFoundException::new);
+	//getMapper().map(dto, answer);
+	answers.updateAnswer(id, dto.getText());
+	//answers.save(answer); // redundant if @Transactional
     }
 
     private void setQuestion(Answer answer, Long questionId) {

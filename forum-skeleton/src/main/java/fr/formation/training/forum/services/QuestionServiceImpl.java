@@ -1,6 +1,7 @@
 package fr.formation.training.forum.services;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import fr.formation.training.forum.RessourceNotFoundException;
 import org.springframework.stereotype.Service;
@@ -46,11 +47,17 @@ public class QuestionServiceImpl extends AbstractService
 	@Transactional
 	@Override
     public void update(Long id, QuestionUpdateDto dto) {
+/*	// "classic" way with mapped dtos
 	Question question = questions.findById(id)
 			.orElseThrow(RessourceNotFoundException::new);
 	getMapper().map(dto, question);
 	setTechnology(question, dto.getTechnologyId());
-	questions.save(question);
+	//questions.save(question); // redundant if @Transactional*/
+	// "new" way through @Modifying JPQL query
+	if(!questions.existsById(id)) {
+		throw new RessourceNotFoundException();
+	}
+	questions.updateQuestion(id, dto.getPhrase(), dto.getText(), dto.getTechnologyId());
     }
 
 	@Transactional(readOnly = true)
@@ -60,6 +67,12 @@ public class QuestionServiceImpl extends AbstractService
 			.orElseThrow(RessourceNotFoundException::new);
 	return new DiscussionViewDto(questionView, answers.findAllProjectedByQuestionId(id));
     }
+
+	@Transactional(readOnly = true)
+	@Override
+	public List<QuestionViewDto> listAll() {
+		return questions.listAll();
+	}
 
 	@Transactional
 	@Override

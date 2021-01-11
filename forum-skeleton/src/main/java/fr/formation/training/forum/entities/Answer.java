@@ -15,14 +15,14 @@ public class Answer extends AbstractEntity {
     @Column(name = "answer_text")
     private String text;
 
-    @Column(name = "answer_author")
+    @Column(name = "answer_author", updatable = false)
     private String author;
 
-    @Column(name = "answer_datetime")
+    @Column(name = "answer_datetime", updatable = false)
     private LocalDateTime answerDate;
 
     @ManyToOne()
-    @JoinColumn(name = "question_id")
+    @JoinColumn(name = "question_id", updatable = false)
     private Question question;
 
     public void setAnswerDate(LocalDateTime answerDate) {
