@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.formation.training.forum.ResourceNotFoundException;
-import fr.formation.training.forum.dtos.TechnologyViewDto;
+import fr.formation.training.forum.dtos.*;
 import fr.formation.training.forum.repositories.TechnologyJpaRepository;
 
 @Service
@@ -40,6 +40,7 @@ public class TechnologyServiceImpl implements TechnologyService {
 	technologies.deleteById(4L); // OK
 	technologies.deleteById(8L); // KO
     }
+
     // public class TechnologyServiceImplProxy extends TechnologyServiceImpl {
     //
     // boolean modified = false;
@@ -86,4 +87,9 @@ public class TechnologyServiceImpl implements TechnologyService {
     // // END TRANSACTION
     // }
     // }
+    @Transactional(readOnly = true)
+    @Override
+    public TechnologyInterfaceDto getOneByInterface(Long id) {
+	return technologies.getById(id);
+    }
 }

@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import fr.formation.training.forum.dtos.*;
+import fr.formation.training.forum.entities.Question;
 import fr.formation.training.forum.services.QuestionService;
 
 @RestController
@@ -49,5 +50,23 @@ public class QuestionController {
     @DeleteMapping("/{id}")
     public void remove(@PathVariable("id") Long id) {
 	service.remove(id);
+    }
+
+    // Open in view demo:
+    // Note: never expose entities directly!
+    // @Transactional(readOnly = true)
+    @GetMapping("/{id}/entity")
+    public Question getQuestion(@PathVariable("id") Long id) {
+	Question question = service.getQuestion(id);
+	// Technology tech = question.getTechnology();
+	// String name = tech.getName();
+	return question;
+    }
+
+    @GetMapping("/{id}/byInterface")
+    public QuestionInterfaceDto getQuestionInterface(
+	    @PathVariable("id") Long id) {
+	QuestionInterfaceDto result = service.getQuestionInterface(id);
+	return result;
     }
 }

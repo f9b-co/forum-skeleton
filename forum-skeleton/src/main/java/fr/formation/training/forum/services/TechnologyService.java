@@ -2,7 +2,7 @@ package fr.formation.training.forum.services;
 
 import java.util.List;
 
-import fr.formation.training.forum.dtos.TechnologyViewDto;
+import fr.formation.training.forum.dtos.*;
 
 public interface TechnologyService {
 
@@ -11,4 +11,6 @@ public interface TechnologyService {
     TechnologyViewDto getOne(Long id);
 
     void deleteBad();
+
+    TechnologyInterfaceDto getOneByInterface(Long id);
 }

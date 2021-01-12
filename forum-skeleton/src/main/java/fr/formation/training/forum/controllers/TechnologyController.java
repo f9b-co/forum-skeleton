@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.*;
 
-import fr.formation.training.forum.dtos.TechnologyViewDto;
+import fr.formation.training.forum.dtos.*;
 import fr.formation.training.forum.services.TechnologyService;
 
 @RestController
@@ -15,11 +15,6 @@ public class TechnologyController {
 
     public TechnologyController(TechnologyService service) {
 	this.service = service;
-    }
-
-    @GetMapping("/{id}")
-    public TechnologyViewDto getOne(@PathVariable("id") Long id) {
-	return service.getOne(id);
     }
 
     @GetMapping
@@ -41,5 +36,19 @@ public class TechnologyController {
     @DeleteMapping("/bad")
     public void deleteBad() {
 	service.deleteBad();
+    }
+
+    //
+    @GetMapping("/{id}")
+    public TechnologyViewDto getOne(@PathVariable("id") Long id) {
+	TechnologyViewDto result = service.getOne(id);
+	return result;
+    }
+
+    @GetMapping("/{id}/byInterface")
+    public TechnologyInterfaceDto getOneByInterface(
+	    @PathVariable("id") Long id) {
+	TechnologyInterfaceDto result = service.getOneByInterface(id);
+	return result;
     }
 }
