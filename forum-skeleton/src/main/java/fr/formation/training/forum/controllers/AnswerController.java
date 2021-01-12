@@ -1,15 +1,13 @@
 package fr.formation.training.forum.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import fr.formation.training.forum.dtos.*;
+import fr.formation.training.forum.entities.Answer;
 import fr.formation.training.forum.services.AnswerService;
 
 @RestController
@@ -31,5 +29,12 @@ public class AnswerController {
     public void update(@PathVariable("id") Long id,
 	    @RequestBody @Valid AnswerUpdateDto dto) {
 	service.update(id, dto);
+    }
+
+    // Open in view demo:
+    @GetMapping("/{questionId}")
+    public List<Answer> getAnswers(
+	    @PathVariable("questionId") Long questionId) {
+	return service.getAnswers(questionId);
     }
 }

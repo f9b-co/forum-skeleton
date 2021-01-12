@@ -18,13 +18,13 @@ public class Question extends AbstractEntity {
     @Column(name = "question_text")
     private String text;
 
-    @Column(name = "question_author")
+    @Column(name = "question_author", updatable = false)
     private String author;
 
-    @Column(name = "question_datetime")
+    @Column(name = "question_datetime", updatable = false)
     private LocalDateTime questionDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "technology_id")
     private Technology technology;
     // @OneToMany(mappedBy = "question", fetch = FetchType.LAZY,

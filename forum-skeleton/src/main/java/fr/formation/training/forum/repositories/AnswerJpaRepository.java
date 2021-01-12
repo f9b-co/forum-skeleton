@@ -22,4 +22,6 @@ public interface AnswerJpaRepository extends JpaRepository<Answer, Long> {
     @Modifying
     @Query("update Answer a set a.text = :text where a.id = :id")
     void updateAnswer(Long id, String text);
+
+    List<Answer> findByQuestionId(Long id);
 }

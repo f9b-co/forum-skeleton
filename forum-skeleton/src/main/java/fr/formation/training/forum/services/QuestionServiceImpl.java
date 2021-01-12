@@ -41,16 +41,13 @@ public class QuestionServiceImpl extends AbstractService
     @Transactional
     @Override
     public void update(Long id, QuestionUpdateDto dto) {
-	Question question = questions.findById(id)
-		.orElseThrow(() -> new ResourceNotFoundException());
-	// Demo code:
-	// Technology technology = question.getTechnology();
-	// String name = technology.getName();
-	//
-	getMapper().map(dto, question);
-	setTechnology(question, dto.getTechnologyId());
-	questions.save(question);
-	// ****************
+	// Functional approach:
+	// Question question = questions.findById(id)
+	// .orElseThrow(() -> new ResourceNotFoundException());
+	// getMapper().map(dto, question);
+	// setTechnology(question, dto.getTechnologyId());
+	// questions.save(question);
+	// Imperative approach:
 	// Optional<Question> optional = questions.findById(id);
 	// if (optional.isEmpty()) {
 	// throw new ResourceNotFoundException();
@@ -60,6 +57,12 @@ public class QuestionServiceImpl extends AbstractService
 	// setTechnology(question, dto.getTechnologyId());
 	// questions.save(question);
 	// }
+	// JPQL update:
+	// ResourceNotFoundException not handled!
+	// If required check first with an "exists" query
+	// like in "remove" service
+	questions.updateQuestion(id, dto.getText(), dto.getPhrase(),
+		dto.getTechnologyId());
     }
 
     @Transactional(readOnly = true)
@@ -76,7 +79,7 @@ public class QuestionServiceImpl extends AbstractService
 	question.setTechnology(technology);
     }
 
-    @Transactional()
+    @Transactional
     @Override
     public void remove(Long id) {
 	if (!questions.existsById(id)) {
@@ -84,5 +87,24 @@ public class QuestionServiceImpl extends AbstractService
 	}
 	answers.deleteByQuestionId(id);
 	questions.deleteById(id);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Question getQuestion(Long id) {
+	Question question = questions.findById(id).get();
+	// Returns reference to Technology proxy:
+	Technology tech = question.getTechnology();
+	// First time access, proxy/lazy initialization
+	// Need a database access
+	String name = tech.getName();
+	System.out.println(name);//
+	//
+	return question;
+    }
+
+    @Override
+    public QuestionInterfaceDto getQuestionInterface(Long id) {
+	return questions.getById(id);
     }
 }

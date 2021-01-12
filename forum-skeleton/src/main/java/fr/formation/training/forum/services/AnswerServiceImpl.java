@@ -1,6 +1,7 @@
 package fr.formation.training.forum.services;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,5 +47,12 @@ public class AnswerServiceImpl extends AbstractService
 	//
 	// redundant if @Transactional:
 	// answers.save(answer);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<Answer> getAnswers(Long questionId) {
+	List<Answer> result = answers.findByQuestionId(questionId);
+	return result;
     }
 }
