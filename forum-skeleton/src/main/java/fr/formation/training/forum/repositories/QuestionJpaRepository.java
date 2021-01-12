@@ -1,5 +1,6 @@
 package fr.formation.training.forum.repositories;
 
+import fr.formation.training.forum.dtos.QuestionInterfaceDto;
 import org.springframework.data.jpa.repository.*;
 
 import fr.formation.training.forum.dtos.QuestionViewDto;
@@ -24,4 +25,6 @@ public interface QuestionJpaRepository extends JpaRepository<Question, Long> {
     @Query("update Question q set q.phrase = :phrase, q.text = :text,"
             + "q.technology.id = :technologyId where q.id = :id")
     void updateQuestion(Long id, String phrase, String text, Long technologyId);
+
+    QuestionInterfaceDto getById(Long id);
 }

@@ -21,7 +21,7 @@ public class Answer extends AbstractEntity {
     @Column(name = "answer_datetime", updatable = false)
     private LocalDateTime answerDate;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "question_id", updatable = false)
     private Question question;
 

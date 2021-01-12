@@ -17,4 +17,6 @@ public interface QuestionService {
     List<QuestionViewDto> listAll();
 
     void deleteDiscussion(Long id);
+
+    QuestionInterfaceDto getOneByInterface(Long id);
 }

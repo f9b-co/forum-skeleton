@@ -83,4 +83,11 @@ public class QuestionServiceImpl extends AbstractService
 		answers.deleteByQuestionId(id);
 		questions.deleteById(id);
 	}
+
+	@Override
+	public QuestionInterfaceDto getOneByInterface(Long id) {
+		return questions.getById(id);
+	}
+
+
 }

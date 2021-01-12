@@ -13,6 +13,8 @@ public interface AnswerJpaRepository extends JpaRepository<Answer, Long> {
             + "from Answer a where a.question.id = :id order by answerDate desc")
     List<AnswerViewDto> findAllProjectedByQuestionId(Long id);
 
+    List<Answer> findByQuestionId(Long questionId);
+
     void deleteByQuestionId(Long questionId);
 
     @Modifying

@@ -42,6 +42,11 @@ public class QuestionController {
 	    return service.getDiscussion(id);
     }
 
+    @GetMapping("/{id}/byInterface")
+    public QuestionInterfaceDto getOneByInterface(@PathVariable("id") Long id) {
+        return service.getOneByInterface(id);
+    }
+
     @GetMapping
     public List<QuestionViewDto> listAll() {
         return service.listAll();

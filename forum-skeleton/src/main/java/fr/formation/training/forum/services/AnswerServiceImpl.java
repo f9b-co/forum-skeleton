@@ -1,6 +1,5 @@
 package fr.formation.training.forum.services;
 
-import fr.formation.training.forum.RessourceNotFoundException;
 import fr.formation.training.forum.dtos.*;
 import fr.formation.training.forum.entities.Answer;
 import fr.formation.training.forum.entities.Question;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class AnswerServiceImpl extends AbstractService
@@ -44,7 +44,12 @@ public class AnswerServiceImpl extends AbstractService
 	//answers.save(answer); // redundant if @Transactional
     }
 
-    private void setQuestion(Answer answer, Long questionId) {
+	@Override
+	public List<Answer> getAnswersByQuestionId(Long questionId) {
+		return answers.findByQuestionId(questionId);
+	}
+
+	private void setQuestion(Answer answer, Long questionId) {
 	Question question = questions.getOne(questionId);
 	answer.setQuestion(question);
     }
