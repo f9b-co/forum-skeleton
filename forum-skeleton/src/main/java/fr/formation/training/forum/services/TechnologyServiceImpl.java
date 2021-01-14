@@ -3,6 +3,8 @@ package fr.formation.training.forum.services;
 import java.util.List;
 
 import fr.formation.training.forum.RessourceNotFoundException;
+import fr.formation.training.forum.dtos.TechnologyAddDto;
+import fr.formation.training.forum.repositories.TechnologyCustomRepository;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +16,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class TechnologyServiceImpl implements TechnologyService {
 
     private final TechnologyJpaRepository technologies;
+    private final TechnologyCustomRepository technologiesCustomRepo;
 
-    public TechnologyServiceImpl(TechnologyJpaRepository technologies) {
-	this.technologies = technologies;
+    public TechnologyServiceImpl(TechnologyJpaRepository technologies, TechnologyCustomRepository technologiesCustomRepo) {
+	    this.technologies = technologies;
+        this.technologiesCustomRepo = technologiesCustomRepo;
     }
 
     @Transactional(readOnly = true)
@@ -31,5 +35,13 @@ public class TechnologyServiceImpl implements TechnologyService {
     @Cacheable("technologies")
     public List<TechnologyViewDto> getAll() {
 	return technologies.getAllProjected();
+    }
+
+    @Transactional
+    @Override
+    public void insertNative(TechnologyAddDto dto) {
+        technologiesCustomRepo.insertConcat(dto);
+        // technologiesCustomRepo.insertParameterized(dto);
+
     }
 }
