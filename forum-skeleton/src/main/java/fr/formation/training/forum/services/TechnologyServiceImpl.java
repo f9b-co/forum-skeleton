@@ -100,7 +100,7 @@ public class TechnologyServiceImpl implements TechnologyService {
     @Transactional
     @Override
     public void insertNative(TechnologyAddDto dto) {
-	customRespo.insertConcat(dto);
-	// customRespo.insertParameterized(dto);
+	// customRespo.insertConcat(dto);
+	customRespo.insertParameterized(dto);
     }
 }
