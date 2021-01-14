@@ -8,15 +8,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fr.formation.training.forum.ResourceNotFoundException;
 import fr.formation.training.forum.dtos.*;
-import fr.formation.training.forum.repositories.TechnologyJpaRepository;
+import fr.formation.training.forum.repositories.*;
 
 @Service
 public class TechnologyServiceImpl implements TechnologyService {
 
     private final TechnologyJpaRepository technologies;
 
-    public TechnologyServiceImpl(TechnologyJpaRepository technologies) {
+    private final TechnologyCustomRepository customRespo;
+
+    public TechnologyServiceImpl(TechnologyJpaRepository technologies,
+	    TechnologyCustomRepository customRespo) {
 	this.technologies = technologies;
+	this.customRespo = customRespo;
     }
 
     @Transactional(readOnly = true)
@@ -96,6 +100,7 @@ public class TechnologyServiceImpl implements TechnologyService {
     @Transactional
     @Override
     public void insertNative(TechnologyAddDto dto) {
-	// TODO
+	customRespo.insertConcat(dto);
+	// customRespo.insertParameterized(dto);
     }
 }
