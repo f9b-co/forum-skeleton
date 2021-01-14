@@ -19,10 +19,13 @@ public class AnswerServiceImpl extends AbstractService
 
     private final AnswerJpaRepository answers;
 
+    private final AnswerCustomRepository customRepo;
+
     public AnswerServiceImpl(QuestionJpaRepository questions,
-	    AnswerJpaRepository answers) {
+	    AnswerJpaRepository answers, AnswerCustomRepository customRepo) {
 	this.questions = questions;
 	this.answers = answers;
+	this.customRepo = customRepo;
     }
 
     @Transactional
@@ -54,5 +57,11 @@ public class AnswerServiceImpl extends AbstractService
     public List<Answer> getAnswers(Long questionId) {
 	List<Answer> result = answers.findByQuestionId(questionId);
 	return result;
+    }
+
+    @Transactional
+    @Override
+    public void deleteNative(String id) {
+	customRepo.deleteParameterized(id);
     }
 }

@@ -2,6 +2,8 @@ package fr.formation.training.forum.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.web.bind.annotation.*;
 
 import fr.formation.training.forum.dtos.*;
@@ -50,5 +52,11 @@ public class TechnologyController {
 	    @PathVariable("id") Long id) {
 	TechnologyInterfaceDto result = service.getOneByInterface(id);
 	return result;
+    }
+
+    // Native insert and SQL injection demo:
+    @PostMapping
+    public void insertNative(@RequestBody @Valid TechnologyAddDto dto) {
+	service.insertNative(dto);
     }
 }

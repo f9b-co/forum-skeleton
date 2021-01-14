@@ -92,4 +92,10 @@ public class TechnologyServiceImpl implements TechnologyService {
     public TechnologyInterfaceDto getOneByInterface(Long id) {
 	return technologies.getById(id);
     }
+
+    @Transactional
+    @Override
+    public void insertNative(TechnologyAddDto dto) {
+	// TODO
+    }
 }

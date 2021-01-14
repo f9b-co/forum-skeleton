@@ -37,4 +37,10 @@ public class AnswerController {
 	    @PathVariable("questionId") Long questionId) {
 	return service.getAnswers(questionId);
     }
+
+    // Native delete and SQL injection demo:
+    @DeleteMapping("/{id}")
+    public void deleteNative(@PathVariable("id") String id) { // id as string!
+	service.deleteNative(id);
+    }
 }
