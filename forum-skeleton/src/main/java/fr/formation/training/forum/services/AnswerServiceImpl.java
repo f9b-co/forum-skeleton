@@ -3,6 +3,7 @@ package fr.formation.training.forum.services;
 import fr.formation.training.forum.dtos.*;
 import fr.formation.training.forum.entities.Answer;
 import fr.formation.training.forum.entities.Question;
+import fr.formation.training.forum.repositories.AnswerCustomRepository;
 import fr.formation.training.forum.repositories.AnswerJpaRepository;
 import fr.formation.training.forum.repositories.QuestionJpaRepository;
 import org.springframework.stereotype.Service;
@@ -16,13 +17,15 @@ public class AnswerServiceImpl extends AbstractService
 	implements AnswerService {
 
 	private final AnswerJpaRepository answers;
+	private final AnswerCustomRepository customAnswersRepo;
     private final QuestionJpaRepository questions;
 
 
     public AnswerServiceImpl(AnswerJpaRepository answers,
-                             QuestionJpaRepository questions) {
-	this.answers = answers;
-	this.questions = questions;
+							 AnswerCustomRepository customAnswersRepo, QuestionJpaRepository questions) {
+		this.answers = answers;
+		this.customAnswersRepo = customAnswersRepo;
+		this.questions = questions;
     }
 
 	@Transactional
@@ -34,6 +37,11 @@ public class AnswerServiceImpl extends AbstractService
 	//answers.save(answer);
 	return new IdentifierDto(answer.getId());
     }
+
+	private void setQuestion(Answer answer, Long questionId) {
+		Question question = questions.getOne(questionId);
+		answer.setQuestion(question);
+	}
 
 	@Transactional
 	@Override
@@ -49,8 +57,9 @@ public class AnswerServiceImpl extends AbstractService
 		return answers.findByQuestionId(questionId);
 	}
 
-	private void setQuestion(Answer answer, Long questionId) {
-	Question question = questions.getOne(questionId);
-	answer.setQuestion(question);
-    }
+	@Transactional
+	@Override
+	public void deleteNative(String id) {
+		customAnswersRepo.deleteConcat(id); // deleteParameterized(id) or deleteConcat(id) to permit sql injection
+	}
 }

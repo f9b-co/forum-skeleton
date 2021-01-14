@@ -12,4 +12,6 @@ public interface AnswerService {
     void update(Long id, AnswerUpdateDto dto);
 
     List<Answer> getAnswersByQuestionId(Long questionId);
+
+    void deleteNative(String id);
 }

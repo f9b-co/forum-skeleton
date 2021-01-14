@@ -35,4 +35,9 @@ public class AnswerController {
         return service.getAnswersByQuestionId(questionId);
     }
 
+    // Native delete and SQL injection demo:
+    @DeleteMapping("/{id}")
+    public void deleteNative(@PathVariable("id") String id) { // id as string!
+        service.deleteNative(id);
+    }
 }
