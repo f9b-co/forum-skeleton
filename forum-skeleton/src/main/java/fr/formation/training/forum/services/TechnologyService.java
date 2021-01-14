@@ -13,4 +13,6 @@ public interface TechnologyService {
     void deleteBad();
 
     TechnologyInterfaceDto getOneByInterface(Long id);
+
+    void insertNative(TechnologyAddDto dto);
 }
