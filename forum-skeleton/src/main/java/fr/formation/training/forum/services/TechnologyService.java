@@ -15,4 +15,6 @@ public interface TechnologyService {
     TechnologyInterfaceDto getOneByInterface(Long id);
 
     void insertNative(TechnologyAddDto dto);
+
+    void postWithViolation();
 }
