@@ -24,7 +24,7 @@ public class TechnologyServiceImpl implements TechnologyService {
 	this.customRespo = customRespo;
     }
 
-    @Transactional(readOnly = true)
+    // @Transactional(readOnly = true)
     @Override
     public TechnologyViewDto getOne(Long id) {
 	return technologies.findProjectedById(id)
