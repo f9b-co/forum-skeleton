@@ -6,6 +6,22 @@
     <property name="PATTERN" value="%d %p %C{1.}:%line [%t] %m%n" />
     <!-- 2021-02-10 09:39:36,429 INFO org.springframework.boot.SpringApplication [main] The following profiles are active: dev -->
 
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/forum.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/archives/forum-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>50KB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <MaxHistory>2</MaxHistory>
+            <totalSizeCap>150KB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
             <Pattern>${PATTERN}</Pattern>
@@ -18,7 +34,16 @@
         <appender-ref ref="CONSOLE" />
     </root>
 
-    <logger name="fr.formation.training.forum.CustomControllerAdvice" level="trace" additivity="false">
+    <logger name="fr.formation.training.forum.CustomControllerAdvice" level="info" additivity="false">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+    </logger>
+
+    <logger name="org.hibernate.SQL" level="debug" additivity="false">
+        <appender-ref ref="CONSOLE" />
+    </logger>
+
+    <logger name="org.hibernate.type.descriptor.sql" level="trace" additivity="false">
         <appender-ref ref="CONSOLE" />
     </logger>
 
