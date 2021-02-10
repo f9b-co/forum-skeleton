@@ -16,7 +16,8 @@ public class TechnologyCustomRepository {
     }
 
     public void insertConcat(TechnologyAddDto dto) {
-	String sql = "insert into technologies (technology_name, technology_rating) values (";
+	String sql = "insert into technologies "
+		+ "(technology_name, technology_rating) values (";
 	sql += "\"" + dto.getName() + "\", ";
 	sql += dto.getRating();
 	sql += ")";
@@ -25,10 +26,11 @@ public class TechnologyCustomRepository {
     }
 
     public void insertParameterized(TechnologyAddDto dto) {
-	String sql = "insert into technologies (technology_name, technology_rating) values (:name, :rating)";
+	String sql = "insert into technologies "
+		+ "(technology_name, technology_rating) values (?1, ?2)";
 	Query query = em.createNativeQuery(sql);
-	query.setParameter("name", dto.getName());
-	query.setParameter("rating", dto.getRating());
+	query.setParameter(1, dto.getName());
+	query.setParameter(2, dto.getRating());
 	query.executeUpdate();
     }
 }

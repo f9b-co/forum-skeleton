@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fr.formation.training.forum.ResourceNotFoundException;
 import fr.formation.training.forum.dtos.*;
+import fr.formation.training.forum.entities.Technology;
 import fr.formation.training.forum.repositories.*;
 
 @Service
@@ -23,11 +24,12 @@ public class TechnologyServiceImpl implements TechnologyService {
 	this.customRespo = customRespo;
     }
 
-    @Transactional(readOnly = true)
+    // @Transactional(readOnly = true)
     @Override
     public TechnologyViewDto getOne(Long id) {
 	return technologies.findProjectedById(id)
-		.orElseThrow(ResourceNotFoundException::new);
+		.orElseThrow(() -> new ResourceNotFoundException(
+			"no tech found with id: " + id));
     }
 
     @Transactional(readOnly = true)
@@ -100,7 +102,16 @@ public class TechnologyServiceImpl implements TechnologyService {
     @Transactional
     @Override
     public void insertNative(TechnologyAddDto dto) {
-	customRespo.insertConcat(dto);
-	// customRespo.insertParameterized(dto);
+	// customRespo.insertConcat(dto);
+	customRespo.insertParameterized(dto);
+    }
+
+    @Transactional
+    @Override
+    public void postWithViolation() {
+	Technology tech = new Technology();
+	tech.setName("Java");
+	tech.setRating(10);
+	technologies.save(tech);
     }
 }

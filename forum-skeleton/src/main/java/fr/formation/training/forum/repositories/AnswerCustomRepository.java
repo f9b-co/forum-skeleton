@@ -14,10 +14,9 @@ public class AnswerCustomRepository {
     }
 
     public void deleteConcat(String id) { // 9
-	String sql = "delete from answers where id = ";
-	sql += id;
+	String sql = "delete from answers where id = " + id;
 	Query query = em.createNativeQuery(sql);
-	query.executeUpdate(); // => database
+	query.executeUpdate();
     }
 
     public void deleteParameterized(String id) {

@@ -62,6 +62,7 @@ public class AnswerServiceImpl extends AbstractService
     @Transactional
     @Override
     public void deleteNative(String id) {
+	// customRepo.deleteConcat(id);
 	customRepo.deleteParameterized(id);
     }
 }
