@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- http://logback.qos.ch/manual/ -->
+<configuration>
+
+    <property name="LOG_PATH" value="./logs" />
+    <property name="PATTERN" value="%d %p %C{1.} [%t] %m%n" />
+    <!-- 2021-02-10 09:39:36,429 INFO org.springframework.boot.SpringApplication [main] The following profiles are active: dev -->
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>${PATTERN}</Pattern>
+        </layout>
+    </appender>
+
+    <!-- Log levels (order): trace, debug, info, warn, error, fatal -->
+
+    <root level="info">
+        <appender-ref ref="CONSOLE" />
+    </root>
+
+    <logger name="fr.formation.training.forum.CustomControllerAdvice" level="trace" additivity="false">
+        <appender-ref ref="CONSOLE" />
+    </logger>
+
+</configuration>
