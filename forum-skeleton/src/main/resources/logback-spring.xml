@@ -3,7 +3,7 @@
 <configuration>
 
     <property name="LOG_PATH" value="./logs" />
-    <property name="PATTERN" value="%d %p %C{1.} [%t] %m%n" />
+    <property name="PATTERN" value="%d %p %C{1.}:%line [%t] %m%n" />
     <!-- 2021-02-10 09:39:36,429 INFO org.springframework.boot.SpringApplication [main] The following profiles are active: dev -->
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
