@@ -1,7 +1,10 @@
 package fr.formation.training.forum.dtos;
 
+import fr.formation.training.forum.NotSameNameAndRating;
+
 import javax.validation.constraints.*;
 
+@NotSameNameAndRating
 public class TechnologyAddDto {
 
     @NotBlank

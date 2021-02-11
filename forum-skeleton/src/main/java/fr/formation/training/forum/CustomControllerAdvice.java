@@ -41,7 +41,7 @@ public class CustomControllerAdvice extends ResponseEntityExceptionHandler {
             notValidErrors.add(new NotValidError(input, notValidated, false));
         }
         for (ObjectError error : globalErrors) {
-            String input = error.getClass().getName();
+            String input = error.getObjectName();
             String notValidated = error.getCode();
             notValidErrors.add(new NotValidError(input, notValidated, true));
         }
